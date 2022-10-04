@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Heartly</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon.png') }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-navigation-drawer app :width="550" v-model="drawer">
+                <v-list-item>
+                    <v-list-item-content>
+                        <v-list-item-title class="text-h6">
+                            Heart Disease Prediction
+                        </v-list-item-title>
+                    </v-list-item-content>
+                    <v-list-item-action>
+                        <v-btn icon>
+                            <v-icon color="grey lighten-1" @click="drawer = false">mdi-close</v-icon>
+                        </v-btn>
+                    </v-list-item-action>
+                </v-list-item>
+                <v-divider></v-divider>
+                <template>
+                        <v-form
+                            ref="form"
+                            lazy-validation
+                            class="pb-10"
+                        >
+                            <!-- Demography -->
+                            <v-subheader>DEMOGRAPHICS</v-subheader>
+                            <v-container fluide>
+                                <v-select
+                                v-model="input.Sex"
+                                :items="Sex"
+                                item-text="label"
+                                item-value="value"
+                                label="Gender"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+    
+                                <v-select
+                                v-model="input.AgeCategory"
+                                :items="AgeCategory"
+                                item-text="label"
+                                item-value="value"
+                                label="Age Category"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+    
+                                <v-select
+                                v-model="input.Race"
+                                :items="Race"
+                                item-text="label"
+                                item-value="value"
+                                label="Race"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+                            </v-container>
+                            
+
+                            <!-- Lifestyle -->
+                            <v-subheader>LIFESTYLE</v-subheader>
+                            <v-container fluid>
+                                <v-select
+                                v-model="input.Smoking"
+                                :items="Smoking"
+                                item-text="label"
+                                item-value="value"
+                                label="Have you smoked at least 100 cigarettes in your entire life (approx. 5 packs)?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+    
+                                <v-select
+                                v-model="input.AlcoholDrinking"
+                                :items="AlcoholDrinking"
+                                item-text="label"
+                                item-value="value"
+                                label="Do you have more than 14 drinks of alcohol (men) or more than 7 (women) in a week?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+    
+                                <v-select
+                                v-model="input.PhysicalActivity"
+                                :items="PhysicalActivity"
+                                item-text="label"
+                                item-value="value"
+                                label="Have you played any sports (running, biking, etc.) in the past month?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+    
+                                <v-select
+                                v-model="input.SleepTime"
+                                :items="SleepTime"
+                                label="How many hours on average do you sleep?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+                            </v-container>
+                            
+
+                            <!-- Health Condition -->
+                            <v-subheader>HEALTH CONDITION</v-subheader>
+                            <v-container fluid>
+                                <v-select
+                                v-model="input.BMICategory"
+                                :items="BMICategory"
+                                item-text="label"
+                                item-value="value"
+                                label="BMI Cagtegory"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+    
+                                <v-select
+                                v-model="input.GenHealth"
+                                :items="GenHealth"
+                                item-text="label"
+                                item-value="value"
+                                label="How can you define your general health?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+    
+                                <v-select
+                                v-model="input.DiffWalking"
+                                :items="DiffWalking"
+                                item-text="label"
+                                item-value="value"
+                                label="Do you have serious difficulty walking or climbing stairs?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+
+                                <v-select
+                                v-model="input.PhysicalHealth"
+                                :items="PhysicalHealth"
+                                label="For how many days during the past 30 days was your physical health not good?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+
+                                <v-select
+                                v-model="input.MentalHealth"
+                                :items="MentalHealth"
+                                label="For how many days during the past 30 days was your mental health not good?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+                            </v-container>
+                            
+
+                            <!-- Pre-existing Disease -->
+                            <v-subheader>DISEASE</v-subheader>
+                            <v-container fluid>
+                                <v-select
+                                v-model="input.Diabetic"
+                                :items="Diabetic"
+                                item-text="label"
+                                item-value="value"
+                                label="Have you ever had diabetes?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+    
+                                <v-select
+                                v-model="input.Asthma"
+                                :items="Asthma"
+                                item-text="label"
+                                item-value="value"
+                                label="Do you have asthma?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+    
+                                <v-select
+                                v-model="input.KidneyDisease"
+                                :items="KidneyDisease"
+                                item-text="label"
+                                item-value="value"
+                                label="Do you have kidney disease?"
+                                required
+                                outlined
+                                dense
+                                
+                                ></v-select>
+                                <v-select
+                                v-model="input.SkinCancer"
+                                :items="SkinCancer"
+                                item-text="label"
+                                item-value="value"
+                                label="Do you have skin cancer?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+
+                                <v-select
+                                v-model="input.Stroke"
+                                :items="Stroke"
+                                item-text="label"
+                                item-value="value"
+                                label="Did you have a stroke?"
+                                required
+                                outlined
+                                dense
+                                ></v-select>
+                            </v-container>
+                        
+                        </v-form>
+                    </template>
+            </v-navigation-drawer>
+
+            <v-app-bar app flat>
+                <v-app-bar-nav-icon v-if="!drawer" @click="drawer = !drawer"></v-app-bar-nav-icon>
+            </v-app-bar>
+
+            <v-main>
+
+                <v-container fluid>
+                    <v-card class="mx-auto" flat>
+                        <v-card-text>
+                            <p class="text-h5 text--primary">
+                                What is heart disease?
+                            </p>
+                            <p class="text--primary">
+                                According to <a href="https://www.cdc.gov/" target="_blank">CDC</a>, Heart disease is the leading cause of death in the United States. The term “heart disease” refers to several types of heart conditions. In the United
+                                States, the most common type of heart disease is coronary artery disease (CAD), which can lead to heart attack.
+                            </p>
+                            <p class="text-h5 text--primary">
+                                About this application
+                            </p>
+                            <p class="text--primary">
+                                This application uses a trained machine learning model to calculate the risk of heart disease based on various data points. The model was trained using the logistic regression algorithm to find patterns and correlation within a given dataset. The dataset
+                                comes from the Centers for Disease Control and Prevention (CDC) and is a major part of the Behavioral Risk Factor Surveillance System (BRFSS), which conducts annual telephone surveys to gather data on the health status
+                                of U.S. residents.
+                            </p>
+                            <p class="text-h5 text--primary">
+                                How to use
+                            </p>
+                            <p class="text--primary">
+                                <ol>
+                                    <li>Fill out the form on the left side with your answers</li>
+                                    <li>Press the button below to display your result</li>
+                                </ol>
+                            </p>
+                        </v-card-text>
+
+                        <v-card-actions>
+                            <v-btn dark width="300" color="red accent-4" @click="predictHeartDisease" :loading="loader">
+                                Predict Heart Disease
+                            </v-btn>
+                            <span class="mx-5" v-show="result" class="">
+                                You have a <strong>[[ result ]]</strong> chance of having a heart disease.
+                            </span>
+                        </v-card-actions>
+                    </v-card>
+
+                    <v-card flat>
+                        <div id="result"></div>
+                    </v-card>
+                </v-container>
+            </v-main>
+
+            <v-footer app>
+                <v-col class="text-center text-subtitle-2 grey--text" cols="12">
+                    Randy Asuncion &copy; [[ new Date().getFullYear() ]]
+                </v-col>
+            </v-footer>
+        </v-app>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+
+    <script>
+    </script>
+</body>
+
+</html>
