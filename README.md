@@ -4,7 +4,7 @@ A machine learning web application that predicts a person's risk of developing h
 
 ![screenshot](./screenshot.png)
 
-[Live Demo](https://randya.dev/heartly)
+[Live Demo](https://heartly.randya.dev)
 
 ## Getting Started
 
