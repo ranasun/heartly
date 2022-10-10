@@ -4,11 +4,11 @@ import json
 
 app = Flask(__name__)
 
-@app.route("/heartly")
+@app.route("/")
 def main():
     return render_template('index.html')
 
-@app.route("/heartly/predict", methods=["POST"])
+@app.route("/predict", methods=["POST"])
 def predict():
     payload = request.get_json()
     input = payload['input']
