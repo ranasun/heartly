@@ -20,7 +20,7 @@ pip3 install -r requirements.txt
 
 ## Usage
 
-A live version of this app is available [here](https://randya.dev/heartly)
+A live version of this app is available [here](https://heartly.randya.dev)
 
 ### Development
 
